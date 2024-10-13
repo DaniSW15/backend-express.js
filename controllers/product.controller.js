@@ -50,16 +50,8 @@ export const putProductById = async (req, res) => {
         return res.status(404).json({ success: false, message: "Invalid product id" });
     }
 
-    if (!product.name || !product.price || !product.image) {
-        return res.status(400).json({ success: false, message: "Please fill all fields" });
-    }
-
     try {
         const updatedProduct = await Product.findByIdAndUpdate(id, product, { new: true });
-
-        if (!updatedProduct) {
-            return res.status(404).json({ success: false, message: "Product not found" });
-        }
 
         res.status(200).json({ success: true, data: updatedProduct });
     } catch (error) {
